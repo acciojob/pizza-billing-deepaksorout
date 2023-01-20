@@ -1,6 +1,12 @@
 package com.driver;
 
 public class Pizza {
+    private boolean deluxe=false;
+
+    public void setDeluxe(boolean deluxe) {
+        this.deluxe = deluxe;
+    }
+
     private int extracheese=0;
     private int extratopping=0;
     private boolean paperbag=false;
@@ -24,6 +30,9 @@ public class Pizza {
     }
 
     public void addExtraCheese(){
+        if(deluxe==true){
+            return;
+        }
         // your code goes here
         price+=80;
         extracheese++;
@@ -32,6 +41,9 @@ public class Pizza {
     public void addExtraToppings(){
         // your code goes here
         extratopping++;
+        if(deluxe==true){
+            return;
+        }
         if(isVeg==true){
             price+=70;
         }
@@ -42,7 +54,6 @@ public class Pizza {
 
     public void addTakeaway(){
         // your code goes here
-        price+=20;
         paperbag=true;
     }
 
@@ -54,6 +65,11 @@ public class Pizza {
         else{
             bill="Base Price Of The Pizza: 400\n";
         }
+
+        if(deluxe==true){
+            extracheese=1;
+            extratopping=1;
+        }
         bill+="Extra Cheese Added: "+extracheese*80+"\n";
 
         if(isVeg==true){
@@ -64,6 +80,7 @@ public class Pizza {
         }
         if(paperbag==true){
             bill+="Paperbag Added: 20\n";
+            price+=20;
         }
         bill+="Total Price: "+getPrice()+"\n";
         return this.bill;
